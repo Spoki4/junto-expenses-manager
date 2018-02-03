@@ -8,8 +8,7 @@ interface Props {
     onAccept: (options: FilterOptions) => void
     onReset: () => void
 }
-interface State extends FilterOptions {
-}
+interface State extends FilterOptions {}
 
 const initialState: State = {
     type: "date",
@@ -28,8 +27,11 @@ export class FilterForm extends React.Component<Props, State> {
     state = {...initialState}
 
     onChange = (name, value) => this.setState({[name]: value})
-
     onAccept = () => this.props.onAccept(this.state)
+    onReset = () => {
+        this.setState({...initialState})
+        this.props.onReset()
+    }
 
     render() {
         return (
@@ -76,7 +78,7 @@ export class FilterForm extends React.Component<Props, State> {
                         <button
                             type="button"
                             className="btn btn-outline-warning"
-                            onClick={this.props.onReset}
+                            onClick={this.onReset}
                         >
                             Сбросить
                         </button>

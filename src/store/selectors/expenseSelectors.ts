@@ -22,6 +22,9 @@ export interface FilterOptions {
 export const getFilteredExpenses = (state: AppState) => {
     const filter = state.expenses.filter
 
+    filter.dates.startDate.setHours(0, 0, 0)
+    filter.dates.endDate.setHours(23, 59, 59)
+
     const startDate = filter.dates.startDate.getTime()
     const endDate = filter.dates.endDate.getTime()
 
