@@ -8,6 +8,8 @@ import {Filter} from "../organisms/filter/Filter"
 import {ExpensesTable} from "../organisms/expenses-table/Table"
 import {FilterOptions, getAllExpenses, getFilteredExpenses} from "../store/selectors/expenseSelectors"
 import {RouteComponentProps} from "react-router"
+import {Icon} from "../atoms/icon/Icon"
+import moment from "moment"
 
 type Props = Store & Actions & RouteComponentProps<{}>
 
@@ -38,7 +40,23 @@ class MainPageComponent extends React.Component<Props> {
         this.props.deleteExpense(id)
     }
 
+    transformExpensesToArray = () => {
+        return this.props.expenses.map(item => [
+            item.id.toString(),
+            moment(item.date).format("DD/MM/YYYY"),
+            item.sum.toString(),
+            item.description,
+            <>
+                <a onClick={() => this.edit(item.id)} className="mr-2"><Icon type="pencil"/></a>
+                <a onClick={() => this.remove(item.id)}><Icon type="x" /></a>
+            </>
+        ]).reverse()
+    }
+
+    getSum = () => this.props.expenses.reduce((prevSum, nowSum) => prevSum + nowSum.sum, 0)
+
     render() {
+        const tableData = this.transformExpensesToArray()
         return (
             <div className="container-fluid">
                 <div className="row">
@@ -48,13 +66,13 @@ class MainPageComponent extends React.Component<Props> {
                                 onAccept={this.onFilter}
                                 onReset={this.onFilterReset}
                                 createExpense={this.createExpense}
+                                sum={this.getSum()}
                             />
                         </div>
                         <div className="row">
                             <ExpensesTable
-                                edit={this.edit}
-                                remove={this.remove}
-                                expenses={this.props.expenses}
+                                keyIndex={0}
+                                expenses={tableData}
                             />
                         </div>
                     </div>

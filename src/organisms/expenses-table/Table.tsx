@@ -1,38 +1,30 @@
 import * as React from "react"
-import {Expense} from "../../store/reducers/expense/reducer"
 import {Row} from "./Row"
 
 interface Props {
-    expenses: Expense[]
-    edit: (id: number) => void
-    remove: (id: number) => void
+    expenses: any[][]
+    keyIndex: number
 }
 
-export class ExpensesTable extends React.Component<Props> {
-    render() {
-        return (
+const header = ["Номер", "Дата", "Сумма", "Описание", "Действия"]
+
+export const ExpensesTable = (props: Props) => (
             <div className="table-responsive">
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>Дата</th>
-                            <th>Сумма</th>
-                            <th>Описание</th>
-                            <th>Действия</th>
+                            {header.map((item, index) => <th key={index}>{item}</th>)}
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.expenses.map(item => (
+                        {props.expenses.map(item => (
                             <Row
-                                edit={this.props.edit}
-                                remove={this.props.remove}
-                                key={item.id}
-                                expense={item}
+                                header={header}
+                                key={item[props.keyIndex]}
+                                data={item}
                             />
                         ))}
                     </tbody>
                 </table>
             </div>
         )
-    }
-}

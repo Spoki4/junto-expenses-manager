@@ -13,13 +13,13 @@ interface State {
     id?: number
     date: Date
     description: string
-    sum: number
+    sum: string
 }
 
 const initialState: State = {
     date: new Date(),
     description: "",
-    sum: 0
+    sum: ""
 }
 
 export class ExpenseForm extends React.Component<Props, State> {
@@ -34,7 +34,8 @@ export class ExpenseForm extends React.Component<Props, State> {
     }
 
     onSave = () => {
-        this.props.onSave(this.state)
+        const data = {...this.state, sum: parseInt(this.state.sum, 10)}
+        this.props.onSave(data)
     }
 
     render() {

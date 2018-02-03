@@ -1,21 +1,14 @@
-import {Expense} from "../../store/reducers/expense/reducer"
 import * as React from "react"
-import moment from "moment"
+
+import "./row.css"
 
 interface Props {
-    expense: Expense
-    remove: (id: number) => void
-    edit: (id: number) => void
+    data: string[]
+    header: string[]
 }
 
-export const Row = ({expense, remove, edit}: Props) => (
+export const Row = ({header, data}: Props) => (
     <tr>
-        <td>{moment(expense.date).format("MM/DD/YYYY")}</td>
-        <td>{expense.sum}</td>
-        <td>{expense.description}</td>
-        <td>
-            <a onClick={() => edit(expense.id)}>Редактировать</a>
-            <a onClick={() => remove(expense.id)}>Удалить</a>
-        </td>
+        {data.map((item, index) => <td key={index} data-label={header[index]}>{item}</td>)}
     </tr>
 )

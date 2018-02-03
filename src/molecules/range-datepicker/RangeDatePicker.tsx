@@ -25,27 +25,22 @@ export class RangeDatePicker extends React.Component<Props> {
         const {values} = this.props
 
         return (
-            <div className="form-row">
-                <div className="form-group">
-                    <div>
-                        от <DatePicker
-                        name="startDate"
-                        selectsStart
-                        onChange={this.onDateChange}
-                        startDate={values.startDate}
-                        endDate={values.endDate}
-                    />
-                    </div>
-                    <div>
-                        до <DatePicker
-                        name="endDate"
-                        selectsEnd
-                        onChange={this.onDateChange}
-                        startDate={values.startDate}
-                        endDate={values.endDate}
-                    />
-                    </div>
-                </div>
+            <div className="form-group">
+                <DatePicker
+                    name="startDate"
+                    selectsStart
+                    onChange={this.onDateChange}
+                    startDate={values.startDate}
+                    endDate={values.endDate}
+                />
+                <div className="w-100 text-center"><span>-</span></div>
+                <DatePicker
+                    name="endDate"
+                    selectsEnd
+                    onChange={this.onDateChange}
+                    startDate={values.startDate}
+                    endDate={values.endDate}
+                />
             </div>
         )
     }

@@ -2,9 +2,9 @@ import * as React from "react"
 
 interface Props {
     type: "text" | "number"
-    value: string | number
-    onChange: (name, value) => void
-    name: string
+    value?: string | number
+    onChange?: (name, value) => void
+    name?: string
     placeHolder?: string
 }
 
@@ -16,6 +16,7 @@ export class Input extends React.Component<Props> {
     render() {
         return (
             <input
+                {...this.props}
                 className="form-control"
                 type={this.props.type}
                 onChange={this.onChange}

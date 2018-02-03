@@ -1,8 +1,9 @@
 import * as React from "react"
-import DP from "react-datepicker"
+import DP, {ReactDatePickerProps} from "react-datepicker"
 import moment from "moment"
-
 import "react-datepicker/dist/react-datepicker.css"
+import "./styles.css"
+import {Input} from "../input/Input"
 
 interface Props {
     name?: string
@@ -35,7 +36,7 @@ export class DatePicker extends React.Component<Props> {
     render() {
         const {value, selectsStart, selectsEnd, startDate, endDate} = this.props
 
-        const props = {
+        const props: ReactDatePickerProps = {
             onChange: this.onDateChanged,
             selected: this.getValue(),
             selectsStart: selectsStart,
@@ -43,13 +44,15 @@ export class DatePicker extends React.Component<Props> {
             startDate: startDate && moment(startDate),
             endDate: endDate && moment(endDate),
             id: this.props.id,
+            dateFormat: "DD/MM/YYYY",
             popperPlacement: "top-end",
             popperModifiers: {
                 preventOverflow: {
                     enabled: true,
                     boundariesElement: 'viewport'
                 }
-            }
+            },
+            customInput: <Input type="text"/>
         }
 
         return (
